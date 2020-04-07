@@ -1,4 +1,7 @@
+#!/usr/bin/env python3
+
 import sys
+from lib.wallet import wallet
 
 def help():
     print("""
@@ -11,19 +14,22 @@ update      downloads the last blocks from the blockchain
 """)
 
 def history():
-    print("history")
+    print("shows the last transactions")
 
 def init():
-    print("init")
+    print("creates an empty wallet")
+    mywallet = wallet()
+    mywallet.generate()
+    print(mywallet.publicKey)
 
 def mine():
-    print("mine")
+    print("generates a new block")
 
 def transfer():
     print("transfer x yyyy")
 
 def update():
-    print("update")
+    print("downloads the last blocks from the blockchain")
 
 if __name__ == '__main__':
     if len(sys.argv) <= 1 or sys.argv[1] == 'help':
