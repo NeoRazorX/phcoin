@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import sys
-from lib.wallet import wallet
+from phcoinlib.wallet import wallet
 
 def help():
     print("""
