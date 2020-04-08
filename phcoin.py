@@ -7,6 +7,7 @@ def help():
     print("""
 help        shows this dialog
 history     shows the last transactions
+info        shows the current wallet information
 init        creates an empty wallet
 mine        generates a new block
 transfer    transfer coins from this wallet to another
@@ -16,11 +17,14 @@ update      downloads the last blocks from the blockchain
 def history():
     print("shows the last transactions")
 
+def info():
+    mywallet = wallet()
+    print("wallet: " + mywallet.publicKey)
+
 def init():
-    print("creates an empty wallet")
     mywallet = wallet()
     mywallet.generate()
-    print(mywallet.publicKey)
+    print("new wallet: " + mywallet.publicKey)
 
 def mine():
     print("generates a new block")
@@ -36,6 +40,8 @@ if __name__ == '__main__':
         help()
     elif sys.argv[1] == 'history':
         history()
+    elif sys.argv[1] == 'info':
+        info()
     elif sys.argv[1] == 'init':
         init()
     elif sys.argv[1] == 'mine':
