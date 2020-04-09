@@ -5,27 +5,27 @@ from Crypto import Random
 from Crypto.PublicKey import RSA
 
 class wallet:
-    fileName = 'phcoin.cfg'
-    privateKey = ''
-    publicKey = ''
+    file_name = 'phcoin.cfg'
+    private_key = ''
+    public_key = ''
 
     def __init__(self):
         try:
-            configFile = open(self.fileName)
-            data = json.loads(configFile.read())
-            self.privateKey = data['privateKey']
-            self.publicKey = data['publicKey']
+            config_file = open(self.file_name)
+            data = json.loads(config_file.read())
+            self.private_key = data['private_key']
+            self.public_key = data['public_key']
         except FileNotFoundError:
             pass
     
     def generate(self):
         key = RSA.generate(1024, Random.new().read)
-        self.privateKey = binascii.hexlify(key.exportKey(format='DER')).decode('ascii')
-        self.publicKey =  binascii.hexlify(key.publickey().exportKey(format='DER')).decode('ascii')
+        self.private_key = binascii.hexlify(key.exportKey(format='DER')).decode('ascii')
+        self.public_key =  binascii.hexlify(key.publickey().exportKey(format='DER')).decode('ascii')
         self.save()
     
     def save(self):
-        jsonString = json.dumps({'privateKey': self.privateKey, 'publicKey': self.publicKey})
-        configFile = open('phcoin.cfg', 'w')
-        configFile.write(jsonString)
-        configFile.close()
+        json_string = json.dumps({'private_key': self.private_key, 'public_key': self.public_key})
+        config_file = open('phcoin.cfg', 'w')
+        config_file.write(json_string)
+        config_file.close()
