@@ -19,7 +19,10 @@ def history():
 
 def info():
     mywallet = wallet()
-    print("wallet: " + mywallet.publicKey)
+    if not mywallet.publicKey:
+        print("no wallet found. Use init to create one.")
+    else:
+        print("wallet: " + mywallet.publicKey)
 
 def init():
     mywallet = wallet()

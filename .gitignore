@@ -129,4 +129,4 @@ dmypy.json
 .pyre/
 
 # phcoin data and config files
-#phcoin.cfg
+phcoin.cfg

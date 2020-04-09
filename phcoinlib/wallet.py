@@ -6,8 +6,8 @@ from Crypto.PublicKey import RSA
 
 class wallet:
     fileName = 'phcoin.cfg'
-    privateKey = None
-    publicKey = None
+    privateKey = ''
+    publicKey = ''
 
     def __init__(self):
         try:
@@ -16,9 +16,7 @@ class wallet:
             self.privateKey = data['privateKey']
             self.publicKey = data['publicKey']
         except FileNotFoundError:
-            print("no wallet found. Use init to create one.")
-        finally:
-            configFile.close()
+            pass
     
     def generate(self):
         key = RSA.generate(1024, Random.new().read)
