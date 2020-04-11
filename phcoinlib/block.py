@@ -9,19 +9,11 @@ class block:
         self.miner = None
         self.number = number
         self.reward = 0
-        self.timestamp = datetime.datetime.utcnow()
+        self.timestamp = str(datetime.datetime.utcnow())
         self.transactions = transactions
     
     def __str__(self):
-        return json.dumps({
-            'hash': self.hash,
-            'last_hash': self.last_hash,
-            'miner': self.miner,
-            'number': self.number,
-            'reward': self.reward,
-            'timestamp': self.timestamp.__str__(),
-            'transactions': self.transactions
-        })
+        return json.dumps(self.toDict())
     
     def build(self):
         json_string = json.dumps({
@@ -29,7 +21,18 @@ class block:
             'miner': self.miner,
             'number': self.number,
             'reward': self.reward,
-            'timestamp': self.timestamp.__str__(),
+            'timestamp': self.timestamp,
             'transactions': self.transactions
         })
         self.hash = hashlib.sha256(json_string.encode('utf-8')).hexdigest()
+    
+    def toDict(self):
+        return {
+            'hash': self.hash,
+            'last_hash': self.last_hash,
+            'miner': self.miner,
+            'number': self.number,
+            'reward': self.reward,
+            'timestamp': self.timestamp,
+            'transactions': self.transactions
+        }

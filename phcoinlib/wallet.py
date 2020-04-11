@@ -5,12 +5,12 @@ from Crypto import Random
 from Crypto.PublicKey import RSA
 
 class wallet:
-    file_name = 'phcoin.cfg'
+    file_name = 'wallet.json'
 
     def __init__(self):
         try:
-            config_file = open(self.file_name)
-            data = json.loads(config_file.read())
+            wallet_file = open(self.file_name)
+            data = json.loads(wallet_file.read())
             self.private_key = data['private_key']
             self.public_key = data['public_key']
         except FileNotFoundError:
@@ -24,7 +24,7 @@ class wallet:
         self.save()
     
     def save(self):
-        json_string = json.dumps({'private_key': self.private_key, 'public_key': self.public_key})
-        config_file = open('phcoin.cfg', 'w')
-        config_file.write(json_string)
-        config_file.close()
+        json_string = json.dumps({'private_key': self.private_key, 'public_key': self.public_key}, indent=4)
+        wallet_file = open(self.file_name, 'w')
+        wallet_file.write(json_string)
+        wallet_file.close()

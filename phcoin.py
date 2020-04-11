@@ -16,7 +16,8 @@ update      downloads the last blocks from the blockchain
 """)
 
 def history():
-    print("shows the last transactions")
+    my_blockchain = blockchain()
+    print(my_blockchain)
 
 def info():
     my_wallet = wallet()
