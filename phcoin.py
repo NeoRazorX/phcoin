@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 import sys
-from phcoinlib.block import block
 from phcoinlib.blockchain import blockchain
 from phcoinlib.wallet import wallet
 
@@ -20,20 +19,21 @@ def history():
     print("shows the last transactions")
 
 def info():
-    mywallet = wallet()
-    if not mywallet.public_key:
+    my_wallet = wallet()
+    if not my_wallet.public_key:
         print("no wallet found. Use init to create one.")
     else:
-        print("wallet: " + mywallet.public_key)
+        print("wallet: " + my_wallet.public_key)
 
 def init():
-    mywallet = wallet()
-    mywallet.generate()
-    print("new wallet: " + mywallet.public_key)
+    my_wallet = wallet()
+    my_wallet.generate()
+    print("new wallet: " + my_wallet.public_key)
 
 def mine():
-    myblockchain = blockchain()
-    myblockchain.mine(block("New block"))
+    my_wallet = wallet()
+    my_blockchain = blockchain()
+    my_blockchain.mine(my_wallet.public_key)
 
 def transfer():
     print("transfer x yyyy")

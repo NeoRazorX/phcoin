@@ -1,29 +1,35 @@
 #!/usr/bin/env python3
 
-import datetime, hashlib
+import datetime, hashlib, json
 
 class block:
-    index = 0
-    data = None
-    next = None
-    hash = None
-    nonce = 0
-    previous_hash = 0x0
-    timestamp = datetime.datetime.now()
-
-    def __init__(self, data):
-        self.data = data
-
-    def hash(self):
-        h = hashlib.sha256()
-        h.update(
-        str(self.nonce).encode('utf-8') +
-        str(self.data).encode('utf-8') +
-        str(self.previous_hash).encode('utf-8') +
-        str(self.timestamp).encode('utf-8') +
-        str(self.index).encode('utf-8')
-        )
-        return h.hexdigest()
-
+    def __init__(self, transactions, number, last_hash):
+        self.hash = None
+        self.last_hash = last_hash
+        self.miner = None
+        self.number = number
+        self.reward = 0
+        self.timestamp = datetime.datetime.utcnow()
+        self.transactions = transactions
+    
     def __str__(self):
-        return "Block Hash: " + str(self.hash()) + "\nBlock: " + str(self.index) + "\nBlock Data: " + str(self.data) + "\nHashes: " + str(self.nonce) + "\n--------------"
+        return json.dumps({
+            'hash': self.hash,
+            'last_hash': self.last_hash,
+            'miner': self.miner,
+            'number': self.number,
+            'reward': self.reward,
+            'timestamp': self.timestamp.__str__(),
+            'transactions': self.transactions
+        })
+    
+    def build(self):
+        json_string = json.dumps({
+            'last_hash': self.last_hash,
+            'miner': self.miner,
+            'number': self.number,
+            'reward': self.reward,
+            'timestamp': self.timestamp.__str__(),
+            'transactions': self.transactions
+        })
+        self.hash = hashlib.sha256(json_string.encode('utf-8')).hexdigest()
