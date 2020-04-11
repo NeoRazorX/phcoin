@@ -24,17 +24,19 @@ def info():
     if not my_wallet.public_key:
         print("no wallet found. Use init to create one.")
     else:
-        print("wallet: " + my_wallet.public_key)
+        print("wallet: " + my_wallet.public_key + "\nbalance: " + str(my_wallet.balance))
 
 def init():
     my_wallet = wallet()
     my_wallet.generate()
-    print("new wallet: " + my_wallet.public_key)
+    print("new wallet: " + my_wallet.public_key + "\nbalance: " + str(my_wallet.balance))
 
 def mine():
     my_wallet = wallet()
     my_blockchain = blockchain()
     my_blockchain.mine(my_wallet.public_key)
+    my_wallet.balance = my_blockchain.get_balance(my_wallet.public_key)
+    my_wallet.save()
 
 def transfer():
     print("transfer x yyyy")

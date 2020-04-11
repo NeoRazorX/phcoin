@@ -36,6 +36,13 @@ class blockchain:
         self.last_hash = new_block.hash
         self.last_number = new_block.number
         self.save()
+    
+    def get_balance(self, address):
+        balance = 0
+        for item in self.blocks:
+            if item.miner == address:
+                balance += item.reward
+        return balance
 
     def mine(self, miner):
         new_block = block([], 1 + self.last_number, self.last_hash)
