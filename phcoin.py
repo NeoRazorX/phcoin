@@ -33,13 +33,16 @@ def init():
 
 def mine():
     my_wallet = wallet()
-    my_blockchain = blockchain()
-    my_blockchain.mine(my_wallet.public_key)
-    # show last block
-    print(my_blockchain.last())
-    # update wallet balance
-    my_wallet.balance = my_blockchain.balance(my_wallet.public_key)
-    my_wallet.save()
+    if not my_wallet.public_key:
+        print("no wallet found. Use init to create one.")
+    else:
+        my_blockchain = blockchain()
+        my_blockchain.mine(my_wallet.public_key)
+        # show last block
+        print(my_blockchain.last())
+        # update wallet balance
+        my_wallet.balance = my_blockchain.balance(my_wallet.public_key)
+        my_wallet.save()
 
 def transfer():
     print("transfer x yyyy")
