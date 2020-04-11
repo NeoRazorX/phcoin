@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 import binascii, json
-from Crypto import Random
 from Crypto.PublicKey import RSA
 
 class wallet:
@@ -21,7 +20,7 @@ class wallet:
             pass
     
     def generate(self):
-        key = RSA.generate(1024, Random.new().read)
+        key = RSA.generate(1024)
         self.balance = 0
         self.private_key = binascii.hexlify(key.exportKey(format='DER')).decode('ascii')
         self.public_key =  binascii.hexlify(key.publickey().exportKey(format='DER')).decode('ascii')
