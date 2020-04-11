@@ -13,9 +13,9 @@ class block:
         self.transactions = transactions
     
     def __str__(self):
-        return json.dumps(self.toDict())
+        return json.dumps(self.to_dict())
     
-    def build(self):
+    def get_hash(self):
         json_string = json.dumps({
             'last_hash': self.last_hash,
             'miner': self.miner,
@@ -24,9 +24,9 @@ class block:
             'timestamp': self.timestamp,
             'transactions': self.transactions
         })
-        self.hash = hashlib.sha256(json_string.encode('utf-8')).hexdigest()
+        return hashlib.sha256(json_string.encode('utf-8')).hexdigest()
     
-    def toDict(self):
+    def to_dict(self):
         return {
             'hash': self.hash,
             'last_hash': self.last_hash,
